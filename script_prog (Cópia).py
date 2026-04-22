@@ -17,6 +17,24 @@ class Pessoa(ABC):
     def __str__(self):
         return f"{self.name} ({self.get_type()})"
 
+    
+    #getter
+    @property
+    def id(self):
+        return self.__id
+
+    #setter
+    @id.setter
+    def id(self, value):
+        if value < 0:
+            raise ValueError("Este valor nao eh permitido")
+        self.__id = value
+
+    @abstractmethod
+    def get_type(self):
+        pass
+
+
 
 class Aluno(Pessoa):
     def __init__(self, name=None, email=None, id=None, notas=None):
@@ -47,7 +65,7 @@ class Pussor(Pessoa):
     def get_description(self):
         return f"O professor {self.name}, leciona {self.subject}."
 
-if __name__ == "__main__":
+    if __name__ == "__main__":
     # Processamento do Aluno
     print("ok")
     aluno1 = Aluno("Mario Santos", "msantos@gmail.com", 12, [15, 10, 13])
@@ -65,4 +83,29 @@ if __name__ == "__main__":
         print(pessoa.get_description())
 
     
-    # Processamento do Professor TRAZER INTERACAO COM BASE DE DADOS ATRAVES DE HERANCA E POLIMOFIRMOgit clone https://github.com/nickyzinn16/GUIA-PRATICA.git
+    # Processamento do Professor TRAZER INTERACAO COM BASE DE DADOS ATRAVES DE HERANCA E POLIMOFIRMO
+
+
+class Funcionarios(Pessoa):
+    def __init__(self, name=None, email=None, area=None, tipo=None, id=None):
+        super().__init__(name, email, area, tipo, id)
+
+    def get_type(self):
+        return "Funcionario da escola"
+
+    def adicionar_funcionaro(self):
+        conn = conectar()
+        cursor = conn.cursor()
+
+        sql = "INSERT INTO funcionarios (nome, email, area, tipo) VALUES (%s, %s, %s, %s)"
+        valores = (self.name, self.email, self.area, self.tipo)
+
+        cursor.execute(sql, valores)
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+
+    # ======================================================================================================
+    # ======================================================================================================
+    # ======================================================================================================

@@ -61,3 +61,45 @@ class Turma:
     # ======================================================================================================
     # ======================================================================================================
     # ======================================================================================================
+
+class Funcionarios:
+       def inserir_funcionarios(self, funcionarios):
+        conn = conectar()
+        cursor = conn.cursor()
+
+        sql = "INSERT INTO funcionarios (nome, email, area, tipo) VALUES (%s, %s, %s, %s)"
+        valores = (funcionarios.nome, funcionarios.email, funcionarios.area, funcionarios.tipo)
+
+        cursor.execute(sql, valores)
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+
+    # ======================================================================================================
+    # ======================================================================================================
+    # ======================================================================================================
+
+    def listar_funcionarios(self):
+        conn = conectar()
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT id, nome, email, area, tipo FROM funcionarios")
+        result_query = cursor.fetchall()
+
+        lista_funcionarios = []
+
+        for nome, email, area, tipo in result_query:
+            funcionarios = {
+                "nome": nome,
+                "email": email,
+                "area": area,
+                "tipo": tipo
+            }
+
+            lista_funcionarios.append(funcionarios)
+
+        cursor.close()
+        conn.close()
+
+        return lista_funcionarios

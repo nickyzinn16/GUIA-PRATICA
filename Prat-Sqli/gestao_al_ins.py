@@ -37,3 +37,4 @@ class AlunoI:
 payload = "1900 or 1 = 1"
 al01 = AlunoI(payload)
 al01.selecionar_dados_inseguro() 
+

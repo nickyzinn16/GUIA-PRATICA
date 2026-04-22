@@ -1,6 +1,7 @@
 from db import conectar
 from aluno import Aluno
 from turma import Turma
+from turma import Funcionarios
 
 turma = Turma()
 
@@ -10,6 +11,8 @@ def menu():
         print("1 - Adicionar Alunos")
         print("2 - Listar Alunos")
         print("3 - Ver media da turma")
+        print("4 - Adicionar funcionarios")
+        print("5 - Listar funconaros")
         print("0 - Sair do Programa")
 
         option = input("Por favor escolha uma opcao: ")
@@ -34,6 +37,24 @@ def menu():
         elif option == "3":
             media = turma.calcular_media_turma()
             print(f"Media da turma: {media}")
+
+        elif option == "4":
+            nome = input("Nome: ")
+            email = input("Email: ")
+            area = input("Area de atuacao: ")
+            tipo = input("Tipo de Funcionario: ")
+
+            funcionarios = Funcionarios(nome, email, area, tipo)
+            funcionarios.inserir_funcionarios(funcionarios)
+
+            print("Funcionario adicionado")
+
+        elif option == "5":
+            funcionarios = listar_funcionarios()
+
+            print("\nLista de Funcionarios:")
+            for f in funcionarios:
+                print(f)
 
         elif option == "0":
             print("Programa encerrado.")
