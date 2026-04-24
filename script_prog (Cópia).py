@@ -41,6 +41,21 @@ class Aluno(Pessoa):
         super().__init__(name, email, id)
         self.notas = notas
 
+# - - - - - 
+    @property
+    def notas(self):
+        return self._notas
+
+    @notas.setter
+    def notas(self, lista_notas):
+        for nota in lista_notas:
+            if nota < 0 or nota > 20:
+                raise ValueError("As notas devem estar entre 0 e 20")
+        self._notas = lista_notas
+
+# - - - - - 
+
+
     def calcular_media(self):
         return sum(self.notas) / len(self.notas)
 
